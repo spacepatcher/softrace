@@ -25,7 +25,7 @@ Softrace response:
 }
 ```
 
-### Run
+### Start application
 
 Build docker image `insert_bolt` for creating Bolt database with NSRL data set:
 ```
@@ -47,3 +47,12 @@ By default the API service is available on `localhost:8001`.
 
 ### Update data
 
+To update the database file data you need to put new exemplars of files downloaded from Current RDS Hash Sets page (https://www.nist.gov/itl/ssd/software-quality-group/nsrl-download/current-rds-hash-sets) in `data/nsrl_rds/rds_modern/` (I recommend use Modern RDS Minimal set). You should set the file names as it shown below:
+```
+NSRLFile.txt
+NSRLMfg.txt
+NSRLOS.txt
+NSRLProd.txt
+```
+
+After that, you should remove old database file and generate the new one.
