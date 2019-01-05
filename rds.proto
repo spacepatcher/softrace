@@ -1,0 +1,15 @@
+syntax = "proto3";
+package softrace;
+
+message RDSProto {
+    string SHA1 = 1;
+    string MD5 = 2;
+    string CRC32 = 3;
+    string FileName = 4;
+    string FileSize = 5;
+    string ProductName = 6;
+    string ProductVersion = 7;
+    string ApplicationType = 8;
+    string OpSystemName = 9;
+    string OpSystemVersion = 10;
+}

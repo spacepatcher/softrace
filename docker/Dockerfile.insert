@@ -1,0 +1,20 @@
+FROM golang:1.11-alpine as builder
+
+RUN apk -U --no-cache add git \
+                          protobuf \
+ && go get -u github.com/golang/protobuf/protoc-gen-go \
+ && PATH=$PATH:$GOPATH/bin
+
+WORKDIR /go/src/github.com/spacepatcher/softrace
+
+COPY . .
+
+RUN protoc -I=./ --go_out=./ rds.proto \
+ && go get ./... \
+ && go build -i ./softrace.go \
+ && go build -i -o insert_bolt cmd/insert_bolt/insert_bolt.go \
+ && adduser -D app
+
+USER app
+
+ENTRYPOINT ["/go/src/github.com/spacepatcher/softrace/insert_bolt"]
