@@ -8,7 +8,7 @@ import (
 )
 
 // RDSFile CSV file path
-const RDSFilesPath = "data/nsrl_rds/rds_modern/NSRLFile_1000000.txt"
+const RDSFilesPath = "data/nsrl_rds/rds_modern/NSRLFile.txt"
 
 // RDSProd CSV file path
 const RDSProductsPath = "data/nsrl_rds/rds_modern/NSRLProd.txt"
@@ -17,7 +17,7 @@ const RDSProductsPath = "data/nsrl_rds/rds_modern/NSRLProd.txt"
 const RDSOpSystemsPath = "data/nsrl_rds/rds_modern/NSRLOS.txt"
 
 // BoltDB path
-	const BoltPath = "data/bolt/bolt_1000000.db"
+const BoltPath = "data/bolt/bolt.db"
 
 // Gin-gonic configuration
 const GinConn = "0.0.0.0:8001"

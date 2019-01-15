@@ -13,7 +13,7 @@ import (
 
 func serialize(decoded *softrace.RDS) *[]byte {
 	rds := &softrace.RDSProto{
-		SHA1: decoded.SHA1,
+		SHA1:            decoded.SHA1,
 		MD5:             decoded.MD5,
 		CRC32:           decoded.CRC32,
 		FileName:        decoded.FileName,
