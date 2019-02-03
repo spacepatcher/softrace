@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile.web
     restart: always
+    environment:
+       - GIN_MODE=release
     volumes:
       - ./data:/go/src/github.com/spacepatcher/softrace/data
     ports:
