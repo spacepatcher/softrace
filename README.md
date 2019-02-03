@@ -1,6 +1,6 @@
 # Softrace 
 
-Softrace is a simple Golang application for storing NIST National Software Reference Library Reference Data Set (NSRL RDS). Softrace based on Bolt database, so it should be fast.
+Softrace is a simple Golang application for storing NIST National Software Reference Library Reference Data Set (<a href="https://www.nist.gov/software-quality-group/national-software-reference-library-nsrl" target="_blank">NSRL RDS</a>). Softrace is based on Bolt database, so it is fast and tiny.
 
 The application is able to process md5 and sha1 hash lookup searches.
 
@@ -25,29 +25,11 @@ Softrace response:
 }
 ```
 
-### Start application
+### Create database file
 
-Build docker image `insert_bolt` for creating Bolt database with NSRL data set:
-```
-docker build -t insert_bolt -f docker/Dockerfile.insert .
-```
+To create the required database file you first need to download archive `Modern RDS Minimal` from Current RDS Hash Sets page https://www.nist.gov/itl/ssd/software-quality-group/nsrl-download/current-rds-hash-sets. 
 
-Create Bolt database file with `insert_bolt` container:
-```
-docker run -ti --name insert_bolt --mount src=`pwd`/data,target=/go/src/github.com/spacepatcher/softrace/data,type=bind insert_bolt
-```
-
-To start API service run:
-```
-docker-compose up
-```
-
-By default the API service is available on `localhost:8001`.
-
-
-### Update data
-
-To update the database file data you need to put new exemplars of files downloaded from Current RDS Hash Sets page (https://www.nist.gov/itl/ssd/software-quality-group/nsrl-download/current-rds-hash-sets) in `data/nsrl_rds/rds_modern/` (I recommend use Modern RDS Minimal set). You should set the file names as it shown below:
+You should unpack the downloaded archive into `data/nsrl_rds/rds_modern/` with the following extracted file names:
 ```
 NSRLFile.txt
 NSRLMfg.txt
@@ -55,4 +37,32 @@ NSRLOS.txt
 NSRLProd.txt
 ```
 
-After that, you should remove old database file and generate the new one.
+Build docker image `insert_bolt` for creating Bolt database with NSRL data set:
+```
+docker build -t insert_bolt -f docker/Dockerfile.insert .
+```
+
+To avoid the problem with access rights to Docker volume, set the correct access rights:
+```
+chown -R 1000:1000 data/
+```
+
+Create Bolt database file with `insert_bolt` container:
+```
+docker run -ti --name insert_bolt -v `pwd`/data:/go/src/github.com/spacepatcher/softrace/data:delegated insert_bolt
+```
+
+Creating a database file located in `data/bolt/bolt.db` takes several hours (in some cases, with low R/W it will take more than a day, so be patient). Total size of the database file by the end of the process is about 38 gigabytes.
+
+### Start API service
+
+To start API service run:
+```
+docker-compose up
+```
+
+By default the API service is available on `127.0.0.1:8001`.
+
+### Update data
+
+To update the database file data, you need to put new exemplars of files downloaded from Current RDS Hash Sets page in `data/nsrl_rds/rds_modern/`. After that, you should remove the existing database file and generate a new one.
