@@ -27,9 +27,9 @@ Softrace response:
 
 ### Create database file
 
-To create the required database file you first need to download archive `Modern RDS Minimal` from Current RDS Hash Sets page https://www.nist.gov/itl/ssd/software-quality-group/nsrl-download/current-rds-hash-sets. 
+To create the required database file you first need to download archive `Modern RDS Minimal` from Current RDS Hash Sets page https://www.nist.gov/itl/ssd/software-quality-group/national-software-reference-library-nsrl/nsrl-download/current-rds. 
 
-You should unpack the downloaded archive into `data/nsrl_rds/rds_modern/` with the following extracted file names:
+You should unpack the downloaded archive into `data/nsrl_rds/rds_modern/` with names of the extracted files:
 ```
 NSRLFile.txt
 NSRLMfg.txt
@@ -52,7 +52,7 @@ Create Bolt database file with `insert_bolt` container:
 docker run -ti --name insert_bolt -v `pwd`/data:/go/src/github.com/spacepatcher/softrace/data:delegated insert_bolt
 ```
 
-Creating a database file located in `data/bolt/bolt.db` takes several hours (in some cases, with low R/W it will take more than a day, so be patient). Total size of the database file by the end of the process is about 38 gigabytes.
+Creating a database file which is located in `data/bolt/bolt.db` takes several hours (in some cases, with low R/W it will take more than a day, so be patient). Total size of the database file by the end of the process is about 38 gigabytes.
 
 ### Start API service
 
